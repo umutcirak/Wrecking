@@ -13,36 +13,56 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float steeringSpeed;
 
+    [SerializeField] Transform rotatingPoint;
+
     void Update()
     {
         GetInput();    
     }
     private void FixedUpdate()
     {
-        Move();
+        // Move();
         //RotateTowards();
+        Move();        
+        Rotate();
     }
 
 
 
 
+    void Move()
+    {
+        Vector3 force = new Vector3(horizontalInput, 0f, verticalInput);
+        _rigidbody.AddForce(force * moveSpeed);
+    }
+
     
+   
+    /*
     void Move()
     {
         _rigidbody.velocity = new Vector3(horizontalInput * moveSpeed,
            _rigidbody.velocity.y, verticalInput * moveSpeed);
     }
+    */
     
 
+    void Rotate()
+    {
+        if (horizontalInput !=0 || verticalInput != 0) 
+        {
+            transform.rotation = Quaternion.LookRotation(_rigidbody.velocity);
+        }
+
+
+    }
+
+    /*
     public void RotateTowards()
     {
         if (horizontalInput < 0.1f && verticalInput < 0.1f) { return; }
-
-        Vector3 targetRot2 = new Vector3(horizontalInput, 0f, verticalInput);
-
-        Vector3 targetRot = _rigidbody.velocity;
-
-        Quaternion rotTarget = Quaternion.LookRotation(targetRot2 - this.transform.position);
+                
+        Quaternion rotTarget = Quaternion.LookRotation(rotatingPoint.position - this.transform.position);
         Quaternion result = Quaternion.RotateTowards(transform.rotation, rotTarget, steeringSpeed * Time.deltaTime);
 
         float angleDif = transform.eulerAngles.y - rotTarget.eulerAngles.y;
@@ -54,7 +74,7 @@ public class PlayerController : MonoBehaviour
         }
         
     }
-
+    */
     void GetInput()
     {
         horizontalInput = _joystick.Horizontal;
