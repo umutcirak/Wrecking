@@ -18,9 +18,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool isSpinning;
     [SerializeField] float spinSpeed;
 
+    Player player;
+
+    private void Awake()
+    {
+        player = FindObjectOfType<Player>();
+    }
+
     void Update()
     {
         GetInput();    
+    }
+
+    void LateUpdate()
+    {
+        SetTrails();
     }
     private void FixedUpdate()
     {     
@@ -64,6 +76,25 @@ public class PlayerController : MonoBehaviour
     public void SetSpinning()
     {
         isSpinning = !isSpinning;
+    }
+
+
+    void SetTrails()
+    {
+        bool activation;
+        if(_rigidbody.velocity.magnitude > 5f)
+        {
+            activation = true;
+        }
+        else
+        {
+            activation = false;
+        }
+
+        foreach (var item in player.WheelTrails)
+        {
+            item.enableEmission = activation;
+        }
     }
 
 
