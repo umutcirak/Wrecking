@@ -55,7 +55,22 @@ public class PlayerController : MonoBehaviour
 
         if (horizontalInput !=0 || verticalInput != 0) 
         {
-            transform.rotation = Quaternion.LookRotation(_rigidbody.velocity);
+            Vector3 dir = _rigidbody.velocity;
+            dir.y = 0;
+
+            //transform.rotation = Quaternion.LookRotation(dir);
+
+
+            Quaternion rotTarget = Quaternion.LookRotation(dir);
+            Quaternion result = Quaternion.RotateTowards(transform.rotation, rotTarget, steeringSpeed);
+
+            float angleDif = transform.eulerAngles.y - rotTarget.eulerAngles.y;
+
+            if (Mathf.Abs(angleDif) > 1f)  // Mathf.Epsilon
+            {
+                transform.eulerAngles = new Vector3(0, result.eulerAngles.y, 0);
+            }
+
         }
     }
 
@@ -69,7 +84,11 @@ public class PlayerController : MonoBehaviour
     {
         if (isSpinning)
         {
-            transform.Rotate(0, spinSpeed, 0f);           
+            //transform.Rotate(0, spinSpeed, 0f);           
+
+            Vector3 torque = new Vector3(0f, spinSpeed, 0f);
+
+            _rigidbody.AddTorque(torque);
         }
     }
 
