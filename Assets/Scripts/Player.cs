@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
 
     public float energyConsuming;
         
-    public enum abilityType { None ,Tornado, Laser}
+    public enum abilityType { None ,Tornado, Rocket}
     public abilityType ability;
     public bool isAbilityActive;
 
@@ -25,10 +25,12 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject ball;
 
 
-    [Header("Laser Settings")]
-    [SerializeField] ParticleSystem laserVFX;
-    [SerializeField] [Range(3, 8)] public int laserCount;
-    [SerializeField] float laserForce;   
+    [Header("Rocket Settings")]
+    [SerializeField] ParticleSystem rocketVFX;
+    [SerializeField] [Range(3, 8)] public int rocketCount;
+    [SerializeField] float rocketForce;
+    [SerializeField] float rocketRange;
+    [SerializeField] GameObject nearestCar;
 
     PlayerController playerController;
     UIManager uiManager;
