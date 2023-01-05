@@ -12,17 +12,28 @@ public class PlayerController : MonoBehaviour
     private float horizontalInput;
 
     [SerializeField] private float steeringSpeed;
+    [SerializeField] private float dropRotationSpeed;
+      
 
-    [SerializeField] Transform rotatingPoint;
-
-    [SerializeField] bool isSpinning;
+    [SerializeField] public bool isSpinning;
+    [SerializeField] public bool isUsingSkill;
     [SerializeField] float spinSpeed;
 
     Player player;
 
+    [SerializeField] GameObject ball;
+
+    [SerializeField] float heightToControl;
+
     private void Awake()
     {
         player = FindObjectOfType<Player>();
+    }
+
+    private void Start()
+    {
+        isUsingSkill = false;
+        isSpinning = false;
     }
 
     void Update()
@@ -39,11 +50,13 @@ public class PlayerController : MonoBehaviour
         Move();        
         Rotate();
         Spin();
+        FixDropRotation();
     }
 
     void Move()
     {
         if(isSpinning) { return; }
+        if (transform.position.y > heightToControl) { return; }
 
         Vector3 force = new Vector3(horizontalInput, 0f, verticalInput);
         _rigidbody.AddForce(force * moveSpeed);
@@ -51,15 +64,16 @@ public class PlayerController : MonoBehaviour
 
     void Rotate()
     {
-        if (isSpinning) { return; }
+        if (isSpinning || isUsingSkill) { return; }
+        if (transform.position.y > heightToControl) { return; }
 
-        if (horizontalInput !=0 || verticalInput != 0) 
+        if (Mathf.Abs(_rigidbody.velocity.magnitude) > 0.15f) 
         {
+
             Vector3 dir = _rigidbody.velocity;
             dir.y = 0;
 
             //transform.rotation = Quaternion.LookRotation(dir);
-
 
             Quaternion rotTarget = Quaternion.LookRotation(dir);
             Quaternion result = Quaternion.RotateTowards(transform.rotation, rotTarget, steeringSpeed);
@@ -80,21 +94,72 @@ public class PlayerController : MonoBehaviour
         verticalInput   = _joystick.Vertical;
     }
 
+
     void Spin()
     {
-        if (isSpinning)
+        if(isSpinning && player.currentEnergy >= Mathf.Epsilon)
         {
-            //transform.Rotate(0, spinSpeed, 0f);           
-
-            Vector3 torque = new Vector3(0f, spinSpeed, 0f);
-
-            _rigidbody.AddTorque(torque);
-        }
+            SpinCar();
+            SpinBall();
+            player.currentEnergy -= player.energyConsuming;
+            if(player.currentEnergy <= 0f)
+            {
+                player.currentEnergy = 0f;
+                isSpinning = false;
+            }
+        }        
     }
+
+    void SpinCar()
+    {
+        //transform.Rotate(0, spinSpeed, 0f);           
+
+        Vector3 torque = new Vector3(0f, spinSpeed, 0f);
+
+        _rigidbody.AddTorque(torque);
+
+
+    }
+    void SpinBall()
+    {
+        ball.transform.RotateAround(transform.position, Vector3.up, 10f);
+
+        //Rigidbody ballRgbd = ball.GetComponent<Rigidbody>();
+        //ballRgbd.AddRelativeForce(Vector3.forward * 0.1f);
+
+    }
+
+    void FixDropRotation()
+    {
+        float yVelocity = _rigidbody.velocity.y;
+        Debug.Log("y Velocity:" + yVelocity);
+        Debug.Log("y Position: " + transform.position.y);
+        
+        if(yVelocity <= -5f && transform.position.y > 10f && transform.position.y < 25f)
+        {
+            Vector3 direction = new Vector3(1f, 0f, 1f);
+
+            Quaternion rotTarget = Quaternion.LookRotation(direction);
+            Quaternion result = Quaternion.RotateTowards(transform.rotation, rotTarget, dropRotationSpeed);
+
+            float angleDif = transform.eulerAngles.y - rotTarget.eulerAngles.y;
+
+            if (Mathf.Abs(angleDif) > 5f)  // Mathf.Epsilon
+            {
+                transform.eulerAngles = new Vector3(0, result.eulerAngles.y, 0);
+            }
+        }        
+
+    }
+
+
 
     public void SetSpinning()
     {
-        isSpinning = !isSpinning;
+        if(player.currentEnergy >= Mathf.Epsilon)
+        {
+            isSpinning = !isSpinning;
+        }        
     }
 
 
