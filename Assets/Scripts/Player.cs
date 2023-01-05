@@ -13,8 +13,14 @@ public class Player : MonoBehaviour
     public float MaxEnergy { get { return maxEnergy; } }
 
     public float energyConsuming;
-        
-    public enum abilityType { None ,Tornado, Rocket}
+
+    [Header("Ball Settings")]   
+    public float ballForce;
+    public float ballVerticalForce;
+
+    public enum abilityType { None, Tornado, Rocket }    
+
+    [Header("ABILITY SETTINGS")]
     public abilityType ability;
     public bool isAbilityActive;
 
@@ -26,22 +32,27 @@ public class Player : MonoBehaviour
 
 
     [Header("Rocket Settings")]
-    [SerializeField] ParticleSystem rocketVFX;
-    [SerializeField] [Range(3, 8)] public int rocketCount;
-    [SerializeField] float rocketForce;
-    [SerializeField] float rocketRange;
-    [SerializeField] GameObject nearestCar;
+    [SerializeField] Rocket rocketPrefab;    
+    [SerializeField] [Range(3, 8)] public int rocketMax;
+    public int rocketLeft;
+    [SerializeField] public float rocketSpeed;
+    [SerializeField] public float rocketForce;
+    [SerializeField] public float rocketRange;
+    [SerializeField] public float explosionRadius;
+
 
     PlayerController playerController;
     UIManager uiManager;
 
+
+    
+
     private void Awake()
     {
         playerController = FindObjectOfType<PlayerController>();
-        uiManager = FindObjectOfType<UIManager>();
+        uiManager = FindObjectOfType<UIManager>();        
     }
-
-
+    
     private void LateUpdate()
     {
         RevivePlayer();
@@ -66,9 +77,37 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(TornadoCo());            
         }
+        if(ability == abilityType.Rocket)
+        {            
+            LaunchRocket();
+            isAbilityActive = false;
+        }
     }
 
 
+
+    void LaunchRocket()
+    {       
+        if(rocketLeft > 0)
+        {
+            Vector3 launchPos = new Vector3(playerController.transform.position.x,
+                         playerController.transform.position.y + 2.5f, playerController.transform.position.z);
+
+            Instantiate(rocketPrefab, launchPos, Quaternion.identity);
+
+            uiManager.FillAbilityBar(rocketLeft, rocketMax);
+            rocketLeft--;
+        }
+        else
+        {
+            ability = abilityType.None;
+            uiManager.ActivateAbilityUI(false);
+            rocketLeft = rocketMax;
+        }
+
+
+        
+    }
     
 
     private IEnumerator TornadoCo()

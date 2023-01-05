@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Gift : MonoBehaviour
 {
-    public enum presentType { tornado, nail }
+    public enum presentType { tornado, rocket }
 
     public presentType present;
     

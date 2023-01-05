@@ -38,8 +38,13 @@ public class GiftCollector : MonoBehaviour
             {
                 DestroyGift(gift);
                 player.ability = Player.abilityType.Tornado;
-                uiManager.SetAbilityName(Player.abilityType.Tornado.ToString());                
-                
+                uiManager.SetAbilityName(Player.abilityType.Tornado.ToString());              
+            }
+            else if(gift.present == Gift.presentType.rocket)
+            {
+                DestroyGift(gift);
+                player.ability = Player.abilityType.Rocket;
+                uiManager.SetAbilityName(Player.abilityType.Rocket.ToString());
             }
             
         }

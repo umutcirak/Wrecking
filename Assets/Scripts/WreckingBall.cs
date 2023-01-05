@@ -16,5 +16,19 @@ public class WreckingBall : MonoBehaviour
         ballTrail.enableEmission = false;
     }
 
+    private void Update()
+    {
+        SolveCollisionBug();
+    }
+
+
+    void SolveCollisionBug()
+    {
+        if(transform.position.y > -1f) { return; }
+
+        Vector3 liftedPos = new Vector3(transform.position.x, 1f, transform.position.z);
+        
+    }
+
 
 }

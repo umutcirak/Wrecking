@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8588712015726172482}
   - component: {fileID: 8588712015718834789}
   m_Layer: 0
-  m_Name: Gift-Nail
+  m_Name: Gift-Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

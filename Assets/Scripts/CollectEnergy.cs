@@ -36,7 +36,7 @@ public class CollectEnergy : MonoBehaviour
         {
             Destroy(collision.gameObject);
             player.currentEnergy += energyPerShot;
-            Mathf.Clamp(player.currentEnergy, 0f, player.MaxEnergy);
+            player.currentEnergy = Mathf.Clamp(player.currentEnergy, 0f, player.MaxEnergy);
             UpdateEnergyBar();
         }        
 

@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
         Move();        
         Rotate();
         Spin();
-        FixDropRotation();
+        //FixDropRotation();
     }
 
     void Move()
@@ -126,20 +126,21 @@ public class PlayerController : MonoBehaviour
     {
         ball.transform.RotateAround(transform.position, Vector3.up, 10f);
 
-        //Rigidbody ballRgbd = ball.GetComponent<Rigidbody>();
+        Rigidbody ballRgbd = ball.GetComponent<Rigidbody>();        
         //ballRgbd.AddRelativeForce(Vector3.forward * 0.1f);
+
+        
 
     }
 
     void FixDropRotation()
     {
-        float yVelocity = _rigidbody.velocity.y;
-        Debug.Log("y Velocity:" + yVelocity);
-        Debug.Log("y Position: " + transform.position.y);
+        float yVelocity = _rigidbody.velocity.y;        
         
-        if(yVelocity <= -5f && transform.position.y > 10f && transform.position.y < 25f)
+        if(yVelocity <= 0f && transform.position.y > 5f && transform.position.y < 50f)
         {
-            Vector3 direction = new Vector3(1f, 0f, 1f);
+            //_rigidbody.velocity = new Vector3(0f, -6f, 0f);
+            Vector3 direction = new Vector3(0f, 1f, 0f);
 
             Quaternion rotTarget = Quaternion.LookRotation(direction);
             Quaternion result = Quaternion.RotateTowards(transform.rotation, rotTarget, dropRotationSpeed);
@@ -148,7 +149,7 @@ public class PlayerController : MonoBehaviour
 
             if (Mathf.Abs(angleDif) > 5f)  // Mathf.Epsilon
             {
-                transform.eulerAngles = new Vector3(0, result.eulerAngles.y, 0);
+                transform.eulerAngles = new Vector3(0f, result.eulerAngles.y, 0f);
             }
         }        
 
