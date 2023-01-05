@@ -10,14 +10,13 @@ public class BallCollision : MonoBehaviour
 
     ShakeCamera camShaker;
 
-    
-
 
     private void Awake()
     {
         player = FindObjectOfType<Player>();
         camShaker = FindObjectOfType<ShakeCamera>();
     }
+    
 
     void OnCollisionEnter(Collision collision)
     {
@@ -33,7 +32,7 @@ public class BallCollision : MonoBehaviour
             rgbdCar.AddForce(forceVector);
 
 
-            camShaker.Play();
+            camShaker.ShakeTheCamera();
             Debug.Log("Collided with a Car!");
         }
         

@@ -3,36 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 public class ShakeCamera : MonoBehaviour
-{
-    [SerializeField] float shakeDuration = 0.5f;
-    [SerializeField] float shakeMagnitude = 0.5f;
-      
-    
-    
+{  
 
-    void Start()
+    [SerializeField] float duration = 0.5f;
+    [SerializeField] float intensity = 0.5f;
+    [SerializeField] float frequency;
+
+
+    CinemachineVirtualCamera virtualCam;
+    CinemachineBasicMultiChannelPerlin cameraNoise;
+
+    private void Awake()
     {
-        
+        virtualCam = GetComponent<CinemachineVirtualCamera>();
+        cameraNoise = virtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+    }
+
+    private void Start()
+    {
+        cameraNoise.m_AmplitudeGain = 0f;
+        cameraNoise.m_FrequencyGain = 0f;
     }
 
 
-    public void Play()
+    public void ShakeTheCamera()
     {
-        StartCoroutine(Shake());
+        StartCoroutine(ShakeCo());
     }
 
-    IEnumerator Shake()
-    {        
-        
-
+    IEnumerator ShakeCo()
+    {
         float elapsedTime = 0f;
-        while (elapsedTime < shakeDuration)
-        {
-            composer.m_TrackedObjectOffset = initialTrackedOffset + (Vector3)Random.insideUnitCircle * shakeMagnitude;
-            elapsedTime += Time.deltaTime;
-            yield return new WaitForEndOfFrame();
-        }
+        cameraNoise.m_AmplitudeGain = intensity;
+        cameraNoise.m_FrequencyGain = frequency;
+        yield return new WaitForSeconds(duration);
 
-        composer.m_TrackedObjectOffset = initialTrackedOffset;
+        cameraNoise.m_AmplitudeGain = 0f;
+        cameraNoise.m_FrequencyGain = 0f;
+
     }
+
+
 }
