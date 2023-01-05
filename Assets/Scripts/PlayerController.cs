@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
 
     void Rotate()
     {
-        if (isSpinning || isUsingSkill) { return; }
+        if (isSpinning) { return; }
         if (transform.position.y > heightToControl) { return; }
 
         if (Mathf.Abs(_rigidbody.velocity.magnitude) > 0.15f) 
@@ -97,6 +97,8 @@ public class PlayerController : MonoBehaviour
 
     void Spin()
     {
+        if(player.isAbilityActive) { return; }
+
         if(isSpinning && player.currentEnergy >= Mathf.Epsilon)
         {
             SpinCar();
@@ -156,6 +158,8 @@ public class PlayerController : MonoBehaviour
 
     public void SetSpinning()
     {
+        if(player.isAbilityActive) { return; }
+
         if(player.currentEnergy >= Mathf.Epsilon)
         {
             isSpinning = !isSpinning;

@@ -13,6 +13,14 @@ public class GiftCollector : MonoBehaviour
 
     [SerializeField] GameObject ball;
 
+    Player player;
+    UIManager uiManager;
+    private void Awake()
+    {
+        player = FindObjectOfType<Player>();
+        uiManager = FindObjectOfType<UIManager>();
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.GetComponent<Gift>() != null)
@@ -23,43 +31,18 @@ public class GiftCollector : MonoBehaviour
             
             Gift gift = collision.gameObject.GetComponent<Gift>();
 
-            if(gift.present == Gift.presentType.tornado)
+            uiManager.ActivateAbilityUI(true);
+            uiManager.FillAbilityBar();
+
+            if (gift.present == Gift.presentType.tornado)
             {
                 DestroyGift(gift);
-
-                StartTornado();                               
-
+                player.ability = Player.abilityType.Tornado;
+                uiManager.SetAbilityName(Player.abilityType.Tornado.ToString());                
+                
             }
             
         }
-    }
-
-
-    void StartTornado()
-    {
-        StartCoroutine(TornadoCo());
-    }
-
-    private IEnumerator TornadoCo()
-    {
-        float countDown = tornadoPeriod;
-        tornadoVFX.enableEmission = true;
-
-        PlayerController player = GetComponent<PlayerController>();
-        player.isSpinning = false;
-
-        while (countDown >= 0)
-        {
-            Debug.Log("Time Left: " + countDown);
-            countDown -= Time.smoothDeltaTime;
-
-            ball.transform.RotateAround(player.transform.position, Vector3.up, tornadoForce * Time.deltaTime);
-            
-            yield return null;
-        }
-
-        tornadoVFX.enableEmission = false;
-        Debug.Log("BITTI");
     }
 
 
