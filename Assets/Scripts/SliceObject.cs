@@ -19,11 +19,14 @@ public class SliceObject : MonoBehaviour
     {
         if(other.gameObject.CompareTag("CanSliced"))
         {
+            Debug.Log("Name" + other.gameObject.name);
+
             SlicedHull slicedObj = Slice(other.gameObject, matSlicedSide);
-            GameObject slicedObjTop = slicedObj.CreateUpperHull(other.gameObject, matSlicedSide);
-            GameObject slicedObjBottom = slicedObj.CreateLowerHull(other.gameObject, matSlicedSide);
+            GameObject slicedObjTop = slicedObj.CreateLowerHull(other.gameObject, matSlicedSide);
+            GameObject slicedObjBottom = slicedObj.CreateUpperHull(other.gameObject, matSlicedSide);
             Destroy(other.gameObject);
 
+            
             slicedObjTop.transform.parent = parent;
             slicedObjBottom.transform.parent = parent;
             slicedObjBottom.name = "Plane";
@@ -32,6 +35,7 @@ public class SliceObject : MonoBehaviour
             AddComponentToPlane(slicedObjBottom);
             AddComponentToSliced(slicedObjTop);
             DestroyObj(slicedObjTop, destroyTime);
+            
         }
     }
 

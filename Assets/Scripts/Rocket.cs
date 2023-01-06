@@ -44,14 +44,12 @@ public class Rocket : MonoBehaviour
 
        while(nearestCar != null)
         {           
-            yield return new WaitForEndOfFrame();
+            //yield return new WaitForEndOfFrame();
             transform.LookAt(nearestCar.transform,Vector3.up);
 
             transform.position = Vector3.MoveTowards(transform.position,
                 nearestCar.transform.position, player.rocketSpeed * Time.deltaTime);
         }
-
-
 
 
         yield return new WaitForSeconds(waitToLock);
@@ -87,7 +85,11 @@ public class Rocket : MonoBehaviour
     void ThrowRocket()
     {        
         Rigidbody rgbd = GetComponent<Rigidbody>();
-        Vector3 forceVector = new Vector3(0f, launchSpeed, 0f);
+
+        float xForce = Random.Range(0f, launchSpeed) / 10f;
+        float zForce = Random.Range(0f, launchSpeed) / 10f;
+
+        Vector3 forceVector = new Vector3(xForce, launchSpeed, zForce);
 
         rgbd.AddForce(forceVector);
         

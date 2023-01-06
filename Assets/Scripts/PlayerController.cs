@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
 
     void Spin()
     {
-        if(player.isAbilityActive) { return; }
+        if(player.isAbilityActive && transform.position.y > 5f) { return; }
 
         if(isSpinning && player.currentEnergy >= Mathf.Epsilon)
         {

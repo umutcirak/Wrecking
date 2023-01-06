@@ -24,9 +24,11 @@ public class WreckingBall : MonoBehaviour
 
     void SolveCollisionBug()
     {
-        if(transform.position.y > -1f) { return; }
+        if(transform.position.y > -1.5f) { return; }
 
         Vector3 liftedPos = new Vector3(transform.position.x, 1f, transform.position.z);
+
+        transform.position = liftedPos;
         
     }
 

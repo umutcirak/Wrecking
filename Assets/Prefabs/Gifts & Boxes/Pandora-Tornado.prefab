@@ -15550,6 +15550,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8958986802274707757}
   - component: {fileID: 8958986802274707756}
+  - component: {fileID: 5144382882337594595}
+  - component: {fileID: 4873552221857894437}
   m_Layer: 0
   m_Name: Pandora-Tornado
   m_TagString: Untagged
@@ -15573,7 +15575,7 @@ Transform:
   - {fileID: 8958986797546662889}
   - {fileID: 8958986796366013439}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8958986802274707756
 MonoBehaviour:
@@ -15588,6 +15590,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   present: 0
+--- !u!65 &5144382882337594595
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8960209953121283139}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.808784, z: 1}
+  m_Center: {x: 0, y: 0.41207263, z: 0}
+--- !u!54 &4873552221857894437
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8960209953121283139}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8960209953132326757
 GameObject:
   m_ObjectHideFlags: 0

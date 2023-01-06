@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &884405487828735388
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 884405487828735386}
+  - component: {fileID: 884405487828735385}
+  m_Layer: 0
+  m_Name: ItemGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &884405487828735386
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884405487828735388}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &884405487828735385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884405487828735388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28ad5c88d0bb1844789a94777b77e3e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pandoraBoxes:
+  - {fileID: 8108709170670773534, guid: adf677d80fb5cb745afb950222d0c924, type: 3}
+  - {fileID: 479430854767062539, guid: 52f2389c6d938a646b184e219c61d2d8, type: 3}
+  - {fileID: 8960209953121283139, guid: 2d5450de9d59fe243b477f9cfe5e271f, type: 3}
+  giftBoxes:
+  - {fileID: 8588712015721009744, guid: 5fe9e11bbb63bb74991deefa5cd27651, type: 3}
+  - {fileID: 7972133498973253794, guid: bd369e27aa0742e46a1e586639067ef8, type: 3}
+  car: {fileID: 7559007714309022734, guid: 5e8679a58df2161409713ba88c86e2fc, type: 3}
+  energyPotion: {fileID: 6634272151292998622, guid: 40c656cd922d52b4cbfe3937351ea9e9,
+    type: 3}
+  xLower: -100
+  xUpper: 100
+  zLower: -100
+  zUpper: 100
+  heightDrop: 10
+  itemCanvas: {fileID: 0}
