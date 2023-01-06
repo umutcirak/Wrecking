@@ -23,12 +23,7 @@ public class Rocket : MonoBehaviour
     {
         StartCoroutine(ActivateRocketCo());
     }
-    public void ActivateRocket()
-    {      
-        StartCoroutine(ActivateRocketCo());
-    }
-
-    
+       
 
     IEnumerator ActivateRocketCo()
     {
@@ -44,16 +39,14 @@ public class Rocket : MonoBehaviour
 
        while(nearestCar != null)
         {           
-            //yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame();
             transform.LookAt(nearestCar.transform,Vector3.up);
 
             transform.position = Vector3.MoveTowards(transform.position,
                 nearestCar.transform.position, player.rocketSpeed * Time.deltaTime);
         }
 
-
-        yield return new WaitForSeconds(waitToLock);
-
+        //yield return new WaitForSeconds(waitToLock);
 
     }
 
@@ -74,7 +67,10 @@ public class Rocket : MonoBehaviour
 
             if (rgbd != null)
             {
-                rgbd.AddExplosionForce(player.rocketForce, transform.position, player.explosionRadius);
+                Vector3 loweredPos = new Vector3(transform.position.x, 
+                    transform.position.y - 4f, transform.position.z);
+
+                rgbd.AddExplosionForce(player.rocketForce, loweredPos, player.explosionRadius);
             }
         }
     }

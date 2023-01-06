@@ -33,16 +33,15 @@ public class GiftCollector : MonoBehaviour
 
             uiManager.ActivateAbilityUI(true);
             uiManager.FillAbilityBar();
+            DestroyGift(gift);
 
             if (gift.present == Gift.presentType.tornado)
-            {
-                DestroyGift(gift);
+            {                
                 player.ability = Player.abilityType.Tornado;
                 uiManager.SetAbilityName(Player.abilityType.Tornado.ToString());              
             }
             else if(gift.present == Gift.presentType.rocket)
-            {
-                DestroyGift(gift);
+            {                
                 player.ability = Player.abilityType.Rocket;
                 uiManager.SetAbilityName(Player.abilityType.Rocket.ToString());
             }

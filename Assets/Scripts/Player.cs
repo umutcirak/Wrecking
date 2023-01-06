@@ -23,13 +23,14 @@ public class Player : MonoBehaviour
     [Header("ABILITY SETTINGS")]
     public abilityType ability;
     public bool isAbilityActive;
+    
 
     [Header("Tornado Settings")]
     [SerializeField] ParticleSystem tornadoVFX;    
     [SerializeField] [Range(3f, 7f)] public float maxTornadoPeriod;
     [SerializeField] float tornadoForce;
     [SerializeField] GameObject ball;
-
+    [SerializeField] public bool isUsingTornado;
 
     [Header("Rocket Settings")]
     [SerializeField] Rocket rocketPrefab;    
@@ -77,7 +78,7 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(TornadoCo());            
         }
-        if(ability == abilityType.Rocket)
+        if(ability == abilityType.Rocket && !isUsingTornado)
         {            
             LaunchRocket();
             isAbilityActive = false;
@@ -90,13 +91,14 @@ public class Player : MonoBehaviour
     {       
         if(rocketLeft > 0)
         {
+            rocketLeft--;
             Vector3 launchPos = new Vector3(playerController.transform.position.x,
                          playerController.transform.position.y + 2.5f, playerController.transform.position.z);
 
             Instantiate(rocketPrefab, launchPos, Quaternion.identity);
 
             uiManager.FillAbilityBar(rocketLeft, rocketMax);
-            rocketLeft--;
+            
         }
         else
         {
@@ -114,7 +116,7 @@ public class Player : MonoBehaviour
     {
         float countDown = maxTornadoPeriod;
         tornadoVFX.enableEmission = true;
-
+        isUsingTornado = true;
        
         playerController.isSpinning = false;
 
@@ -133,6 +135,7 @@ public class Player : MonoBehaviour
         ability = abilityType.None;
         uiManager.ActivateAbilityUI(false);
         isAbilityActive = false;
+        isUsingTornado = false;
 
         Debug.Log("TORNADO DONE");
     }

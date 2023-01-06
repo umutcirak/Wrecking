@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
       
 
     [SerializeField] public bool isSpinning;
-    [SerializeField] public bool isUsingSkill;
+    
     [SerializeField] float spinSpeed;
 
     Player player;
@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        isUsingSkill = false;
+       
         isSpinning = false;
     }
 
@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
 
     void Spin()
     {
-        if(player.isAbilityActive && transform.position.y > 5f) { return; }
+        if(player.isAbilityActive || transform.position.y > 5f) { return; }
 
         if(isSpinning && player.currentEnergy >= Mathf.Epsilon)
         {

@@ -7205,7 +7205,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1044333497, guid: 0735a0e0c9af2504b9a38ce192b5e4f7, type: 3}
       propertyPath: rocketForce
-      value: 1000
+      value: 1750
       objectReference: {fileID: 0}
     - target: {fileID: 1044333497, guid: 0735a0e0c9af2504b9a38ce192b5e4f7, type: 3}
       propertyPath: rocketRange
